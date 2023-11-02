@@ -1,21 +1,16 @@
 // gameboard
-window.onload = prepChoices;
 let board = document.getElementById('board')
 let slots = [];
+
 
 function makeBoard() {
     for(let i = 0; i < 9; i++) {
         let div = document.createElement('div')
         div.className = 'gameslot'
         div.id = 'slot' + i
+        div.innerHTML = ''
+        div.addEventListener('click', () => playerChoice(div.id))
         board.appendChild(div)
-        let slotBtn = document.createElement('button')
-        slotBtn.className = 'slotBtn'
-        slotBtn.id = 'btn' + i
-        slotBtn.value = i
-        slotBtn.innerHTML = ''
-        slotBtn.addEventListener('click', () => playerChoice(slotBtn.value))
-        div.appendChild(slotBtn)
         slots.push(div)
     }
 }
@@ -26,21 +21,6 @@ function clearBoard() {
        board.removeChild(board.firstChild)
     }
     makeBoard()
-}
-
-function prepChoices() {
-    let btn0 = document.getElementById('btn0')
-    let btn1 = document.getElementById('btn1')
-    let btn2 = document.getElementById('btn2')
-    let btn3 = document.getElementById('btn3')
-    let btn4 = document.getElementById('btn4')
-    let btn5 = document.getElementById('btn5')
-    let btn6 = document.getElementById('btn6')
-    let btn7 = document.getElementById('btn7')
-    let btn8 = document.getElementById('btn8')
-
-   
-
 }
 
 // players
@@ -54,11 +34,15 @@ const players = {
 };
 
 // gameplay
-let btns = document.getElementsByClassName('slotBtn')
+let allSlots = document.getElementsByClassName('gameslot')
+
 
 function playerChoice(slotNum) {
-    if (btns[slotNum].innerHTML == '') {
-        btns[slotNum].innerHTML = 'x'
+    let testString = String(slotNum)
+    let testNum = testString.split("")
+    let actualNum = Number(testNum[4])
+    if (allSlots[actualNum].innerHTML == '') {
+        allSlots[actualNum].innerHTML = 'x'
         comChoice()
     } else {
         alert('Tile is already taken. Please select an open option. :)')
@@ -66,15 +50,68 @@ function playerChoice(slotNum) {
 }
 
 function comChoice() {
-    let randomSlot = Math.floor(Math.random() * 9)
-    console.log(randomSlot)
-    if(btns[randomSlot].innerHTML == '') {
-        btns[randomSlot].innerHTML = 'o'
+    if (checkPlayerWin()) {
+    } else if (checkTie()) {
+    } else { 
+        let randomSlot = Math.floor(Math.random() * 9)
+        if (allSlots[randomSlot].innerHTML == '') {
+            allSlots[randomSlot].innerHTML = 'o'
+            checkComWin()
+        } else {
+            comChoice()
+        }
+    }
+    }
+
+function checkPlayerWin() {
+    if (
+        allSlots[0].innerHTML + allSlots[1].innerHTML + allSlots[2].innerHTML == 'xxx' || 
+        allSlots[3].innerHTML + allSlots[4].innerHTML + allSlots[5].innerHTML == 'xxx' || 
+        allSlots[6].innerHTML + allSlots[7].innerHTML + allSlots[8].innerHTML == 'xxx' ||
+        allSlots[0].innerHTML + allSlots[3].innerHTML + allSlots[6].innerHTML == 'xxx' ||
+        allSlots[1].innerHTML + allSlots[4].innerHTML + allSlots[7].innerHTML == 'xxx' ||
+        allSlots[2].innerHTML + allSlots[5].innerHTML + allSlots[8].innerHTML == 'xxx' ||
+        allSlots[0].innerHTML + allSlots[4].innerHTML + allSlots[8].innerHTML == 'xxx' ||
+        allSlots[2].innerHTML + allSlots[4].innerHTML + allSlots[6].innerHTML == 'xxx') {
+            alert('You win! Reset the board and play again!')
+            for (let i = 0; i < 9; i++) {
+                allSlots[i].className += ' winner'
+            }
+            return true
     } else {
-        comChoice()
+        return false
     }
 }
 
-function checkForWin() {
-    
+function checkTie() {
+    let all = allSlots[0].innerHTML + allSlots[1].innerHTML + allSlots[2].innerHTML + allSlots[3].innerHTML + allSlots[4].innerHTML + allSlots[5].innerHTML + allSlots[6].innerHTML + allSlots[7].innerHTML + allSlots[8].innerHTML;
+
+    if (all.length == 9) {
+        alert('Tie game! Reset the board and play again!')
+        return true
+} else {
+    return false
 }
+}
+
+function checkComWin() {
+    let all = allSlots[0].innerHTML + allSlots[1].innerHTML + allSlots[2].innerHTML + allSlots[3].innerHTML + allSlots[4].innerHTML + allSlots[5].innerHTML + allSlots[6].innerHTML + allSlots[7].innerHTML + allSlots[8].innerHTML;
+    if (
+        allSlots[0].innerHTML + allSlots[1].innerHTML + allSlots[2].innerHTML == 'ooo' || 
+        allSlots[3].innerHTML + allSlots[4].innerHTML + allSlots[5].innerHTML == 'ooo' || 
+        allSlots[6].innerHTML + allSlots[7].innerHTML + allSlots[8].innerHTML == 'ooo' ||
+        allSlots[0].innerHTML + allSlots[3].innerHTML + allSlots[6].innerHTML == 'ooo' ||
+        allSlots[1].innerHTML + allSlots[4].innerHTML + allSlots[7].innerHTML == 'ooo' ||
+        allSlots[2].innerHTML + allSlots[5].innerHTML + allSlots[8].innerHTML == 'ooo' ||
+        allSlots[0].innerHTML + allSlots[4].innerHTML + allSlots[8].innerHTML == 'ooo' ||
+        allSlots[2].innerHTML + allSlots[4].innerHTML + allSlots[6].innerHTML == 'ooo') {
+            alert('You lose! Reset the board and play again!')
+            for (let i = 0; i < 9; i++) {
+                allSlots[i].className += ' loser'
+            }
+            return true
+    } else {
+        return false
+    }
+    }
+    
