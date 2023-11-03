@@ -25,9 +25,18 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    font-family: sans-serif;
+    font-weight: 600;
 }
 
-#reset {
+.buttons {
+    display: flex;
+    justify-content: space-evenly;
+    width: 80%;
+}
+
+.btn {
     background-color: hsl(200, 40%, 40%);
     color: white;
     font-size: 1.2rem;
@@ -37,8 +46,40 @@ body {
     border: solid white 2px;
 }
 
-#reset:hover {
-    background-color: hsl(200, 40%, 20%);
+.btn:hover {
+    background-color: hsl(200, 40%, 10%);
+}
+
+.form {
+    height: fit-content;
+    width: 80%;
+    padding-top: 20px;
+    padding-bottom: 40px;
+
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.form-piece {
+    padding: 5px;
+}
+
+input {
+    background-color: hsl(200, 20%, 80%);
+    border: solid 2px hsl(200, 40%, 40%);
+    margin-right: 20px;
+}
+
+#player-form {
+    display: none;
+}
+
+#formSubmit {
+    background-color: hsl(200, 20%, 80%);
+    border: solid hsl(200, 40%, 10%);
+    font-weight: 600;
+    color: hsl(200, 40%, 10%);
+    padding: 5px 10px;
 }
 
 .board {

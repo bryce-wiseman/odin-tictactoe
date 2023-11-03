@@ -12,7 +12,27 @@
         Tic-Tac-Toe
     </div>
     <div class="main">
-        <button id="reset" onclick="clearBoard()">Reset Board</button>
+        <div class="buttons">
+            <button class="btn" onclick="clearBoard()">Reset Board</button>
+            <button class="btn" onclick="showForm()">Update Players</button>
+        </div>
+            <div class="form">
+            <form action="" method="post" id="player-form">
+                <div class="form-piece">
+                    <label for="playerOne">Player 1 Name:</label>
+                    <input type="text" name="playerOne" id="playerOne" required placeholder="Player1">
+                    <label for="symbolOne">Player 1 Symbol:</label>
+                    <input type="text" name="symbolOne" id="symbolOne" required maxlength="1" placeholder="x">
+                </div>
+                <div class="form-piece">
+                    <label for="playerTwo">Player 2 Name:</label>
+                    <input type="text" name="playerTwo" id="playerTwo" required placeholder="Player2">
+                    <label for="symbolTwo">Player 2 Symbol:</label>
+                    <input type="text" name="symbolTwo" id="symbolTwo" required maxlength="1" placeholder="o">
+                </div>
+                <button type="submit" id="formSubmit" onclick="updatePlayers()">Update</button>
+            </form>
+            </div>
         <div class="board" id="board">
 
         </div>
