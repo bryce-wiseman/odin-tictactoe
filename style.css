@@ -4,6 +4,7 @@ body {
     min-height: 100vh;
     margin: 0;
     padding: 0;
+    
 }
 
 .header {
@@ -26,7 +27,7 @@ body {
     justify-content: center;
     align-items: center;
 
-    font-family: sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-weight: 600;
 }
 
@@ -94,12 +95,12 @@ input {
     height: 200px;
     width: 200px;
     border: dashed hsl(200, 20%, 80%) 2px;
-    text-align: center;
     font-size: 10rem;
-    font-weight: 900;
-    font-family: monospace;
-    padding: 0px;
-    text-align: center;
+    font-weight: 700;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .gameslot:hover {
